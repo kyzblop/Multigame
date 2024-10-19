@@ -28,33 +28,14 @@
     </nav>
 
     <div class="blackjack">
+        <!-- Affichage du début, qui sera masqué par la suite-->
+        <!-- Message pour demander la mise -->
         <div id="faitesVosJeux">
-            <img src="/Multigame/Main/images/robot/robot_normal.png" alt="img_robot_normal">
-            <p id="messageRobot">Faites vos jeux !</p>
+            <img class="imgRobot" src="/Multigame/Main/images/robot/robot_normal.png" alt="img_robot_normal">
+            <p class="messageRobot">Faites vos jeux !</p>
         </div>
 
-        <div id="mainCroupier" hidden>
-            <div id="cartesCroupier">
-                <img id="cart1Croupier" class="imageCarte" src="images/dos_carte.png" alt="img_dos_carte">
-                <img id="cart2Croupier" class="imageCarte" src="images/dos_carte.png" alt="img_dos_carte">
-            </div>
-        </div>
-
-        <div id="votreMain" hidden>
-            <div id="cartesJoueur">
-                <img id="cart1Joueur" class="imageCarte" src="images/dos_carte.png" alt="img_dos_carte">
-                <img id="cart2Joueur" class="imageCarte" src="images/dos_carte.png" alt="img_dos_carte">
-                
-            </div>
-
-            <div id="boutons">
-                <button id="btnCarte">Carte</button>
-                <button id="btnDouble">Doubler</button>
-                <button id="btnSplit">Split</button>
-            </div>
-        </div>
-
-
+        <!-- Mise du joueur -->
         <div id="votreMise">
             <p>Votre mise</p>
     
@@ -62,11 +43,10 @@
                 <span class="fontawesome" id="iconMoins">&#xf056;</span> <!-- icone Moins-->
                 <div id="miseText">
                     <p id="miseValeur"></p>
-                    <img id="iconJeton" src="/Multigame/Main/images/jeton_poker.JPG" alt="jeton_poker">
+                    <img class="iconJeton" src="/Multigame/Main/images/jeton_poker.JPG" alt="jeton_poker">
                 </div>
                 <span class="fontawesome" id="iconPlus">&#xf055;</span> <!-- icone Plus-->  
             </div>
-
            
             <a id="btnJouer" class="fancy">
                 <span class="top-key"></span>
@@ -76,6 +56,50 @@
             </a>
    
         </div>
+
+        <!-- Affichage du jeu, qui sera masqué au début-->
+        <!-- Jeu côté croupier-->
+        <div id="mainCroupier" hidden>
+            <div id="croupier" hidden>
+                <img class="imgRobot" src="/Multigame/Main/images/robot/robot_normal.png" alt="img_robot_normal">
+                <p class="messageRobot">Les jeux sont faits</p>
+            </div>
+
+            <div id="cartesCroupier"></div>
+
+            <div id="sabot" hidden>
+                <img id="imgSabot" src="images/sabot.png" alt="img_sabot">
+            </div>
+        </div>
+
+        <!-- Jeu côté joueur-->
+        <div id="votreMain" hidden>
+            <p id="cumulJoueur"></p>
+            <div id="cartesJoueur"></div>
+            <p id="miseJoueur"></p>
+        </div>
+    </div>
+
+    <!-- Boutons d'action dans le jeu -->
+    <div id="boutons" hidden>
+        <a id="btnCarte" class="fancy">
+            <span class="top-key"></span>
+            <span class="text">Carte</span>
+            <span class="bottom-key-1"></span>
+            <span class="bottom-key-2"></span>
+        </a>
+        <a id="btnDouble" class="fancy">
+            <span class="top-key"></span>
+            <span class="text">Doubler</span>
+            <span class="bottom-key-1"></span>
+            <span class="bottom-key-2"></span>
+        </a>
+        <a id="btnRester" class="fancy">
+            <span class="top-key"></span>
+            <span class="text">Rester</span>
+            <span class="bottom-key-1"></span>
+            <span class="bottom-key-2"></span>
+        </a>
     </div>
 
     

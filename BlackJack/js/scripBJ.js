@@ -16,6 +16,12 @@ let numCarte;
 let carte;
 let nbCartes = 52;
 
+let carteTiree;
+let valCart;
+let coulCart;
+let cumulJoueur = 0;
+let cumulCroupier = 0;
+
 let valeurMise = 100;
 
 // Initialisation de la valeur du stack
@@ -96,72 +102,101 @@ document.getElementById("btnJouer").addEventListener("click", () =>{
     // On montre le jeu
     document.getElementById("mainCroupier").hidden = false;
     document.getElementById("votreMain").hidden = false;
+    document.getElementById("croupier").style.display = "flex";
+    document.getElementById("sabot").style.display = "flex";
+    
 
 
     // Le joueur tire sa première carte
     setTimeout(function() {
-        let carte1Joueur = tirerCarte()
-        let valCart = valeur(carte1Joueur)
-        let coulCart = couleur(carte1Joueur)
+        carteTiree = tirerCarte()
+        valCart = valeur(carteTiree)
+        coulCart = couleur(carteTiree)
 
-        console.log(carte1Joueur)
-        console.log(coulCart)
-        console.log(valCart)
+        document.getElementById("cartesJoueur").innerHTML += `
+            <img class="imageCarte" src="images/${coulCart}/${carteTiree}.jpg" alt="img_${carteTiree}">
+        `
 
-        document.getElementById("cart1Joueur").setAttribute("src", `images/${coulCart}/${carte1Joueur}.jpg`)
-        document.getElementById("cart1Joueur").setAttribute("alt", `img_${carte1Joueur}`)
+        cumulJoueur += parseInt(valeur(carteTiree))
+        
     }, 500)
 
     // Le croupier tire sa première carte
     setTimeout(function() {
-        let carte1Croupier = tirerCarte()
-        let valCart = valeur(carte1Croupier)
-        let coulCart = couleur(carte1Croupier)
+        carteTiree = tirerCarte()
+        valCart = valeur(carteTiree)
+        coulCart = couleur(carteTiree)
 
-        console.log(carte1Croupier)
-        console.log(coulCart)
-        console.log(valCart)
+        document.getElementById("cartesCroupier").innerHTML += `
+            <img class="imageCarte" src="images/${coulCart}/${carteTiree}.jpg" alt="img_${carteTiree}">
+        `
 
-        document.getElementById("cart1Croupier").setAttribute("src", `images/${coulCart}/${carte1Croupier}.jpg`)
-        document.getElementById("cart1Croupier").setAttribute("alt", `img_${carte1Croupier}`)
+        cumulCroupier += parseInt(valeur(carteTiree))
+        
     }, 1000)
 
     // Le joueur tire sa seconde carte
     setTimeout(function() {
-        let carte2Joueur = tirerCarte()
-        let valCart = valeur(carte2Joueur)
-        let coulCart = couleur(carte2Joueur)
+        carteTiree = tirerCarte()
+        valCart = valeur(carteTiree)
+        coulCart = couleur(carteTiree)
 
-        console.log(carte2Joueur)
-        console.log(coulCart)
-        console.log(valCart)
+        document.getElementById("cartesJoueur").innerHTML += `
+            <img class="imageCarte" src="images/${coulCart}/${carteTiree}.jpg" alt="img_${carteTiree}">
+        `
 
-        document.getElementById("cart2Joueur").setAttribute("src", `images/${coulCart}/${carte2Joueur}.jpg`)
-        document.getElementById("cart2Joueur").setAttribute("alt", `img_${carte2Joueur}`)
+        cumulJoueur += parseInt(valeur(carteTiree))
+        
     }, 1500)
 
-    // Le croupier tire sa seconde carte
+    // Le croupier tire sa seconde carte sans la montrer
     setTimeout(function() {
-        let carte2Croupier = tirerCarte()
-        let valCart = valeur(carte2Croupier)
-        let coulCart = couleur(carte2Croupier)
+        carteTiree = tirerCarte()
+        valCart = valeur(carteTiree)
+        coulCart = couleur(carteTiree)
 
-        console.log(carte2Croupier)
-        console.log(coulCart)
-        console.log(valCart)
+        document.getElementById("cartesCroupier").innerHTML += `
+            <img id="cart2Croupier" class="imageCarte" src="images/dos_carte.png" alt="img_dos_carte">
+        `
+        cumulCroupier += parseInt(valeur(carteTiree))
 
-        document.getElementById("cart2Croupier").setAttribute("src", `images/${coulCart}/${carte2Croupier}.jpg`)
-        document.getElementById("cart2Croupier").setAttribute("alt", `img_${carte2Croupier}`)
     }, 2000)
+
+    setTimeout(function() {
+        // Retourner la carte du croupier si necessaire
+        if(cumulCroupier==21){
+            document.getElementById("cart2Croupier").setAttribute("src", `images/${coulCart}/${carteTiree}.jpg`)
+            document.getElementById("cart2Croupier").setAttribute("alt", `img_${carteTiree}`)
+        }
+
+        // Afficher les boutons de choix
+        document.getElementById("boutons").hidden = false;
+
+        // Affichage du cumul du joueur
+        document.getElementById("cumulJoueur").innerText = cumulJoueur;
+
+        // Affichage de la mise du joueur
+        document.getElementById("miseJoueur").innerText = valeurMise;
+        document.getElementById("miseJoueur").innerHTML += `<img class="iconJeton" src="/Multigame/Main/images/jeton_poker.JPG" alt="img_jeton_poker"></img>`
+
+
+        // Si un BlackJack a lieu, l'annoncer
+        if(cumulCroupier == cumulJoueur == 21){
+            console.log("Egalité")
+        } else if(cumulJoueur == 21){
+            console.log("BlackJack !")
+        } else if(cumulCroupier == 21){
+            console.log("Perdu !")
+        }
+    }, 2500)
     
 })
 
 
 document.getElementById("btnCarte").addEventListener("click", () => {
     
-    
 })
 
-document.getElementById("btnSplit").addEventListener("click", () => {
+document.getElementById("btnRester").addEventListener("click", () => {
 
 })

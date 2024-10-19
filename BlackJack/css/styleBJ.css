@@ -22,12 +22,12 @@
     flex-direction: row;
 }
 
-#faitesVosJeux img{
+.imgRobot{
     width: 100px;
     height: 100px;
 }
 
-#messageRobot{
+.messageRobot{
     background-image: url(/Multigame/Main/images/bulles/img_bulle_sans_fond.png);
     background-size: 110% 100%;
 
@@ -35,11 +35,58 @@
 }
 
 #mainCroupier{
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+
     height: 50%;
+    width: 100%;
+}
+
+#croupier{
+    /* display: none pour le cacher puis display: flex */
+    display: none;
+    flex-direction: row;
+
+    align-items: center;
+
+    font-size: large;
+
+    width: 300px;
+    height: 100%;
+}
+
+#sabot{
+    /* display: none pour le cacher puis display: flex */  
+    display: none;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    width: 300px;
+    height: 100%;
+}
+
+#imgSabot{
+    width: 200px;
+    height: 100px;
 }
 
 #votreMain{
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+
     height: 50%;
+}
+
+#votreMain p{
+    margin: 0;
+    font-size: 20px;
 }
 
 .imageCarte{
@@ -66,6 +113,10 @@
     width: 100px;
 }
 
+#votreMise{
+    margin-bottom: 15px;
+}
+
 /* Icones de fontawesome, ne pas oublier le lien en debut de doc HTML pour lire les codes icones */
 .fontawesome {
     font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands", sans-serif;
@@ -74,7 +125,7 @@
     font-size: xx-large;
 }
 
-#iconJeton{
+.iconJeton{
     border-radius: 50%;
     width: 20px;
     height: 20px;
