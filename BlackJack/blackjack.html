@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlackJack</title>
-    <link rel="stylesheet" href="css/styleBJ.css">
     <link rel="stylesheet" href="/Multigame/Main/css/style.css">
+    <link rel="stylesheet" href="css/styleBJ.css">
+    <link rel="stylesheet" href="css/boutonsBJ.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <script src="js/scripBJ.js" defer></script>
 </head>
@@ -27,14 +28,26 @@
     </nav>
 
     <div class="blackjack">
-        <div class="mainCroupier">
-            <p id="cartesCroupier">21</p>
+        <div id="faitesVosJeux">
+            <img src="/Multigame/Main/images/robot/robot_normal.png" alt="img_robot_normal">
+            <p id="messageRobot">Faites vos jeux !</p>
         </div>
 
-        <div class="votreMain">
-            <p id="cartesJoueur">10</p>
+        <div id="mainCroupier" hidden>
+            <div id="cartesCroupier">
+                <img id="cart1Croupier" class="imageCarte" src="images/dos_carte.png" alt="img_dos_carte">
+                <img id="cart2Croupier" class="imageCarte" src="images/dos_carte.png" alt="img_dos_carte">
+            </div>
+        </div>
 
-            <div>
+        <div id="votreMain" hidden>
+            <div id="cartesJoueur">
+                <img id="cart1Joueur" class="imageCarte" src="images/dos_carte.png" alt="img_dos_carte">
+                <img id="cart2Joueur" class="imageCarte" src="images/dos_carte.png" alt="img_dos_carte">
+                
+            </div>
+
+            <div id="boutons">
                 <button id="btnCarte">Carte</button>
                 <button id="btnDouble">Doubler</button>
                 <button id="btnSplit">Split</button>
@@ -42,21 +55,30 @@
         </div>
 
 
-    </div>
-
-    <div id="votreMise">
-        <p>Votre mise</p>
-
-        <div class="mise">
-            <span class="fontawesome" id="iconMoins">&#xf056;</span> <!-- icone Moins-->
-            <div id="miseText">
-                <p id="miseValeur"></p>
-                <img id="iconJeton" src="/Multigame/Main/images/jeton_poker.JPG" alt="jeton_poker">
+        <div id="votreMise">
+            <p>Votre mise</p>
+    
+            <div class="mise">
+                <span class="fontawesome" id="iconMoins">&#xf056;</span> <!-- icone Moins-->
+                <div id="miseText">
+                    <p id="miseValeur"></p>
+                    <img id="iconJeton" src="/Multigame/Main/images/jeton_poker.JPG" alt="jeton_poker">
+                </div>
+                <span class="fontawesome" id="iconPlus">&#xf055;</span> <!-- icone Plus-->  
             </div>
-            <span class="fontawesome" id="iconPlus">&#xf055;</span> <!-- icone Plus-->  
+
+           
+            <a id="btnJouer" class="fancy">
+                <span class="top-key"></span>
+                <span class="text">Jouer</span>
+                <span class="bottom-key-1"></span>
+                <span class="bottom-key-2"></span>
+            </a>
+   
         </div>
-        
     </div>
+
+    
 
 </body>
 </html>

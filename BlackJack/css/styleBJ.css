@@ -17,6 +17,36 @@
     border: double 15px black;
 }
 
+#faitesVosJeux{
+    display: flex;
+    flex-direction: row;
+}
+
+#faitesVosJeux img{
+    width: 100px;
+    height: 100px;
+}
+
+#messageRobot{
+    background-image: url(/Multigame/Main/images/bulles/img_bulle_sans_fond.png);
+    background-size: 110% 100%;
+
+    padding: 10px 20px 30px 20px;
+}
+
+#mainCroupier{
+    height: 50%;
+}
+
+#votreMain{
+    height: 50%;
+}
+
+.imageCarte{
+    height: 100px;
+    border-radius: 5%;
+}
+
 /* Gestion de la mise du joueur */
 .mise{
     display: flex;
