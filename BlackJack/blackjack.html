@@ -61,8 +61,8 @@
         <!-- Jeu côté croupier-->
         <div id="mainCroupier" hidden>
             <div id="croupier" hidden>
-                <img class="imgRobot" src="/Multigame/Main/images/robot/robot_normal.png" alt="img_robot_normal">
-                <p class="messageRobot">Les jeux sont faits</p>
+                <img id="teteCroupier" class="imgRobot" src="/Multigame/Main/images/robot/robot_normal.png" alt="img_robot_normal">
+                <p id="messageCroupier" class="messageRobot">Les jeux sont faits</p>
             </div>
 
             <div id="cartesCroupier"></div>
@@ -88,7 +88,7 @@
             <span class="bottom-key-1"></span>
             <span class="bottom-key-2"></span>
         </a>
-        <a id="btnDouble" class="fancy">
+        <a id="btnDoubler" class="fancy">
             <span class="top-key"></span>
             <span class="text">Doubler</span>
             <span class="bottom-key-1"></span>
@@ -100,6 +100,18 @@
             <span class="bottom-key-1"></span>
             <span class="bottom-key-2"></span>
         </a>
+    </div>
+
+    <div class="overlay" id="victoire">
+        <p id="victoireText" class="overlayText"></p>
+    </div>
+
+    <div class="overlay" id="defaite">
+        <p id="defaiteText" class="overlayText"></p>
+    </div>
+
+    <div class="overlay" id="egalite">
+        <p id="egaliteText" class="overlayText">Stand off !</p>
     </div>
 
     

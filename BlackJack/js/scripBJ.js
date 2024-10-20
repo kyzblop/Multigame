@@ -12,17 +12,25 @@ jeuComplet = [
 ];
 
 let jeu = jeuComplet;
-let numCarte;
-let carte;
-let nbCartes = 52;
+let numCarte; // Numero de la carte dans le jeu
+let carte; // Nom de la carte
+let nbCartes = 52; // Nombre de cartes restante dans le jeu
 
-let carteTiree;
-let valCart;
-let coulCart;
-let cumulJoueur = 0;
-let cumulCroupier = 0;
+let carteTiree; // Nom de la carte tirée
+let valCart; // Valeur de la carte tirée
+let coulCart; // Couleur de la carte tirée
 
-let valeurMise = 100;
+let cumulJoueur = 0; // Cumul du joueur
+let cumulCroupier = 0; // Cumul du croupier
+let nbAsJoueur = 0; // Nombre d'as du joueur
+let nbAsCroupier = 0; // Nombre d'as du croupier
+let carte2Croupier; // Seconde carte du croupier (face cachée puis face recto)
+
+let isJoueur; // Boolean pour savoir si c'est le tour du joueur
+let isFin = false; // Boolean pour savoir si le jeu est terminé
+let isBJPossible = true; // Boolean pour savoir si un BlakcJack est possible (si c'est avec les deux premières cartes)
+
+let valeurMise = 100; // Valeur de la mise du joueur
 
 // Initialisation de la valeur du stack
 // let valeurStack = parseInt(sessionStorage.getItem("stack"))
@@ -48,6 +56,10 @@ document.getElementById("iconMoins").addEventListener("click", () => {
     }
 })
 
+// Fonction pour attendre (à utiliser dans une fonction async)
+function attendre(ms) {
+    return new Promise(resolu => setTimeout(resolu, ms))
+}
 
 // Gestion d'un tirage de carte
 function tirerCarte() {
@@ -92,9 +104,210 @@ function couleur(carte) {
     return couleur
 }
 
+// Gestion d'un tirage de carte avec valeur et couleur selon joueur et croupier
+function jouerCarte(isJoueur) {
+    if(isJoueur==true){
+        carteTiree = tirerCarte()
+        valCart = valeur(carteTiree)
+        if(valCart==11){
+            nbAsJoueur ++;
+        }
+        coulCart = couleur(carteTiree)
+
+        document.getElementById("cartesJoueur").innerHTML += `
+            <img class="imageCarte" src="images/${coulCart}/${carteTiree}.jpg" alt="img_${carteTiree}">
+        `
+
+        cumulJoueur += parseInt(valeur(carteTiree))
+
+        // Gestion des As
+        if(cumulJoueur>21 && nbAsJoueur > 0){
+            cumulJoueur = cumulJoueur - 10
+            nbAsJoueur --;
+            console.log("ici")
+        }
+
+        // Affichage du cumul du joueur
+        document.getElementById("cumulJoueur").innerText = cumulJoueur;
+        document.getElementById("messageCroupier").innerText = `Vous avez ${cumulJoueur}`
+
+
+    } else {
+        carteTiree = tirerCarte()
+        valCart = valeur(carteTiree)
+        if(valCart==11){
+            nbAsCroupier ++;
+        }
+        coulCart = couleur(carteTiree)
+
+        document.getElementById("cartesCroupier").innerHTML += `
+            <img class="imageCarte" src="images/${coulCart}/${carteTiree}.jpg" alt="img_${carteTiree}">
+        `
+        cumulCroupier += parseInt(valeur(carteTiree))
+
+        // Gestion des As
+        if(cumulCroupier>21 && nbAsCroupier > 0){
+            cumulCroupier = cumulCroupier - 10
+            nbAsCroupier --;
+        }
+
+        // Affichage du cumul du croupier
+        document.getElementById("messageCroupier").innerText = `J'ai ${cumulCroupier}`
+    }
+}
+
+// Gestion des resultats à chaque carte tirée
+function resultats() {
+
+    if(isBJPossible==true){
+        // Si un BlackJack a lieu, l'annoncer
+        if(cumulCroupier == cumulJoueur == 21){
+            // Message popup
+            document.getElementById("egalite").style.display = "block"
+            
+            // Gestion du robot
+            document.getElementById("teteCroupier").setAttribute("src", "/Multigame/Main/images/robot/robot_heureux.png")
+            document.getElementById("messageCroupier").innerText = "Récupère ta mise !"
+
+            // Gestion de la fin du jeu
+            isFin = true;
+
+            // Gestion de la mise
+            valeurStack += valeurMise
+            sessionStorage.setItem("stack", valeurStack)
+            document.getElementById("stackValeur").innerText = valeurStack
+
+        } else if(cumulJoueur == 21){
+            // Message popup
+            document.getElementById("victoire").style.display = "block"
+            document.getElementById("victoireText").innerText = "BlackJack !"
+            
+            // Gestion du robot
+            document.getElementById("teteCroupier").setAttribute("src", "/Multigame/Main/images/robot/robot_croix.png")
+            document.getElementById("messageCroupier").innerText = "La chance !"
+
+            // Gestion de la fin du jeu
+            isFin = true;
+
+            // Gestion de la mise
+            valeurStack += valeurMise*2.5
+            sessionStorage.setItem("stack", valeurStack)
+            document.getElementById("stackValeur").innerText = valeurStack
+
+        } else if(cumulCroupier == 21){
+            // Message popup
+            document.getElementById("defaite").style.display = "block"
+            document.getElementById("defaiteText").innerText = "Le croupier a Blackjack !"
+
+            // Gestion du robot
+            document.getElementById("teteCroupier").setAttribute("src", "/Multigame/Main/images/robot/robot_moqueur.png")
+            document.getElementById("messageCroupier").innerText = "Par ici la monnaie !"
+
+            // Gestion de la fin du jeu
+            isFin = true;
+        }
+    }
+    
+
+    // Si un bust à lieu, l'annoncer
+    if(cumulJoueur > 21){
+        // Message popup
+        document.getElementById("defaite").style.display = "block"
+        document.getElementById("defaiteText").innerText = "Vous avez busté !"
+
+        // Gestion du robot
+        document.getElementById("teteCroupier").setAttribute("src", "/Multigame/Main/images/robot/robot_moqueur.png")
+        document.getElementById("messageCroupier").innerText = "Nulos !"
+
+        // Gestion de la fin du jeu
+        isFin = true;
+
+    } else if(cumulCroupier > 21){
+        // Message popup
+        document.getElementById("victoire").style.display = "block"
+        document.getElementById("victoireText").innerText = "Le croupier a busté !"
+
+        // Gestion du robot
+        document.getElementById("teteCroupier").setAttribute("src", "/Multigame/Main/images/robot/robot_enerve.png")
+        document.getElementById("messageCroupier").innerText = "Trop nul ce jeu"
+
+        // Gestion de la fin du jeu
+        isFin = true;
+
+        // Gestion de la mise
+        valeurStack += valeurMise*2
+        sessionStorage.setItem("stack", valeurStack)
+        document.getElementById("stackValeur").innerText = valeurStack
+    }
+}
+
+async function jeuCroupier() {
+    // Le croupier retourne sa carte
+    coulCart = couleur(carte2Croupier)
+    document.getElementById("carte2Croupier").setAttribute("src", `images/${coulCart}/${carte2Croupier}.jpg`)
+    document.getElementById("carte2Croupier").setAttribute("alt", `img_${carte2Croupier}`)
+    
+    // Affichage du cumul du croupier
+    document.getElementById("messageCroupier").innerText = `J'ai ${cumulCroupier}`
+
+    // Le croupier pioche ses cartes
+    while(cumulCroupier<17){
+        await attendre(1000)
+        jouerCarte(false)
+        resultats()
+    }
+
+    await attendre(1000)
+    // Resultats finaux si pas de bust ni BlackJack
+    if(isFin == false){
+        if(cumulJoueur > cumulCroupier){
+            // Message popup
+            document.getElementById("victoire").style.display = "block"
+            document.getElementById("victoireText").innerText = "Vous avez gagné !"
+    
+            // Gestion du robot
+            document.getElementById("teteCroupier").setAttribute("src", "/Multigame/Main/images/robot/robot_triste.png")
+            document.getElementById("messageCroupier").innerText = "J'ai jamais de chance"
+
+            // Gestion de la mise
+            valeurStack += valeurMise*2
+            sessionStorage.setItem("stack", valeurStack)
+            document.getElementById("stackValeur").innerText = valeurStack
+
+        } else if(cumulJoueur < cumulCroupier){
+            // Message popup
+            document.getElementById("defaite").style.display = "block"
+            document.getElementById("defaiteText").innerText = "Vous avez perdu !"
+    
+            // Gestion du robot
+            document.getElementById("teteCroupier").setAttribute("src", "/Multigame/Main/images/robot/robot_heureux.png")
+            document.getElementById("messageCroupier").innerText = "C'est pas de chance"
+        } else{
+            // Message popup
+            document.getElementById("egalite").style.display = "block"
+            
+            // Gestion du robot
+            document.getElementById("teteCroupier").setAttribute("src", "/Multigame/Main/images/robot/robot_heureux.png")
+            document.getElementById("messageCroupier").innerText = "Récupère ta mise !"
+
+            // Gestion de la mise
+            valeurStack += valeurMise
+            sessionStorage.setItem("stack", valeurStack)
+            document.getElementById("stackValeur").innerText = valeurStack
+        }
+    }
+    
+
+}
+
 
 // Quand on clique sur Jouer
 document.getElementById("btnJouer").addEventListener("click", () =>{
+    // La mise est retirée de notre stack
+    valeurStack -=  valeurMise
+    sessionStorage.setItem("stack", valeurStack)
+    document.getElementById("stackValeur").innerText = valeurStack
+
     // On cache les premiers elements
     document.getElementById("faitesVosJeux").style.display = "none"
     document.getElementById("votreMise").style.display = "none"
@@ -104,99 +317,124 @@ document.getElementById("btnJouer").addEventListener("click", () =>{
     document.getElementById("votreMain").hidden = false;
     document.getElementById("croupier").style.display = "flex";
     document.getElementById("sabot").style.display = "flex";
-    
-
 
     // Le joueur tire sa première carte
     setTimeout(function() {
-        carteTiree = tirerCarte()
-        valCart = valeur(carteTiree)
-        coulCart = couleur(carteTiree)
-
-        document.getElementById("cartesJoueur").innerHTML += `
-            <img class="imageCarte" src="images/${coulCart}/${carteTiree}.jpg" alt="img_${carteTiree}">
-        `
-
-        cumulJoueur += parseInt(valeur(carteTiree))
-        
-    }, 500)
+        jouerCarte(true)
+    }, 1000)
 
     // Le croupier tire sa première carte
     setTimeout(function() {
-        carteTiree = tirerCarte()
-        valCart = valeur(carteTiree)
-        coulCart = couleur(carteTiree)
-
-        document.getElementById("cartesCroupier").innerHTML += `
-            <img class="imageCarte" src="images/${coulCart}/${carteTiree}.jpg" alt="img_${carteTiree}">
-        `
-
-        cumulCroupier += parseInt(valeur(carteTiree))
-        
-    }, 1000)
+        jouerCarte(false)
+    }, 2000)
 
     // Le joueur tire sa seconde carte
     setTimeout(function() {
-        carteTiree = tirerCarte()
-        valCart = valeur(carteTiree)
-        coulCart = couleur(carteTiree)
-
-        document.getElementById("cartesJoueur").innerHTML += `
-            <img class="imageCarte" src="images/${coulCart}/${carteTiree}.jpg" alt="img_${carteTiree}">
-        `
-
-        cumulJoueur += parseInt(valeur(carteTiree))
-        
-    }, 1500)
+        jouerCarte(true)
+    }, 3000)
 
     // Le croupier tire sa seconde carte sans la montrer
     setTimeout(function() {
         carteTiree = tirerCarte()
-        valCart = valeur(carteTiree)
-        coulCart = couleur(carteTiree)
+        carte2Croupier = carteTiree;
+        valCart = valeur(carte2Croupier)
+        if(valCart==11){
+            nbAsCroupier ++;
+        }
+        coulCart = couleur(carte2Croupier)
 
         document.getElementById("cartesCroupier").innerHTML += `
-            <img id="cart2Croupier" class="imageCarte" src="images/dos_carte.png" alt="img_dos_carte">
+            <img id="carte2Croupier" class="imageCarte" src="images/dos_carte.png" alt="img_dos_carte">
         `
-        cumulCroupier += parseInt(valeur(carteTiree))
+        cumulCroupier += parseInt(valeur(carte2Croupier))
 
-    }, 2000)
+        // Gestion des As
+        if(cumulCroupier>21 && nbAsCroupier > 0){
+            cumulCroupier = cumulCroupier - 10
+            nbAsCroupier --;
+        }
+
+    }, 4000)
 
     setTimeout(function() {
         // Retourner la carte du croupier si necessaire
         if(cumulCroupier==21){
-            document.getElementById("cart2Croupier").setAttribute("src", `images/${coulCart}/${carteTiree}.jpg`)
-            document.getElementById("cart2Croupier").setAttribute("alt", `img_${carteTiree}`)
+            coulCart = couleur(carte2Croupier)
+            document.getElementById("carte2Croupier").setAttribute("src", `images/${coulCart}/${carte2Croupier}.jpg`)
+            document.getElementById("carte2Croupier").setAttribute("alt", `img_${carte2Croupier}`)
         }
+
+        // Afficher le resultat
+        resultats()
 
         // Afficher les boutons de choix
         document.getElementById("boutons").hidden = false;
 
-        // Affichage du cumul du joueur
-        document.getElementById("cumulJoueur").innerText = cumulJoueur;
-
         // Affichage de la mise du joueur
         document.getElementById("miseJoueur").innerText = valeurMise;
-        document.getElementById("miseJoueur").innerHTML += `<img class="iconJeton" src="/Multigame/Main/images/jeton_poker.JPG" alt="img_jeton_poker"></img>`
+        document.getElementById("miseJoueur").innerHTML += `
+            <img class="iconJeton" src="/Multigame/Main/images/jeton_poker.JPG" alt="img_jeton_poker"></img>`
 
-
-        // Si un BlackJack a lieu, l'annoncer
-        if(cumulCroupier == cumulJoueur == 21){
-            console.log("Egalité")
-        } else if(cumulJoueur == 21){
-            console.log("BlackJack !")
-        } else if(cumulCroupier == 21){
-            console.log("Perdu !")
-        }
-    }, 2500)
+        // Un BlackJack n'est plus possible
+        isBJPossible = false;
+    }, 5000)
     
 })
 
-
 document.getElementById("btnCarte").addEventListener("click", () => {
-    
+    // Le joueur tire une carte
+    jouerCarte(true)
+    resultats()
+
+    // Si on obtient 21, le jeu du croupier se lance directement
+    if(cumulJoueur==21){
+        // On cache les boutons
+        document.getElementById("boutons").hidden = true;
+        
+        jeuCroupier()
+    }
 })
 
 document.getElementById("btnRester").addEventListener("click", () => {
+    // On cache les boutons
+    document.getElementById("boutons").hidden = true;
 
+    // Le croupier joue
+    jeuCroupier()
+})
+
+document.getElementById("btnDoubler").addEventListener("click", () => {
+    // Le joueur tire une carte
+    jouerCarte(true)
+    resultats()
+
+    // Une mise est retirée de notre stack
+    valeurStack -=  valeurMise
+    sessionStorage.setItem("stack", valeurStack)
+    document.getElementById("stackValeur").innerText = valeurStack
+
+    // La valeur de la mise est doublée
+    valeurMise = valeurMise*2
+    document.getElementById("miseJoueur").innerText = valeurMise;
+    document.getElementById("miseJoueur").innerHTML += `
+        <img class="iconJeton" src="/Multigame/Main/images/jeton_poker.JPG" alt="img_jeton_poker"></img>`
+
+    // Le jeu du croupier se lance directement
+    jeuCroupier()
+})
+
+// Quitter les écrans de victoire, defaite et egalite
+document.getElementById("victoire").addEventListener("click", () => {
+    document.getElementById("victoire").style.display = "none";
+    window.location.reload()
+})
+
+document.getElementById("defaite").addEventListener("click", () => {
+    document.getElementById("defaite").style.display = "none";
+    window.location.reload()
+})
+
+document.getElementById("egalite").addEventListener("click", () => {
+    document.getElementById("egalite").style.display = "none";
+    window.location.reload()
 })
