@@ -146,7 +146,7 @@ function jouerCarte(isJoueur) {
         document.getElementById(`cartesJoueur${mainEnCours}`).innerHTML += `
             <img id="main${mainEnCours}Carte${carteEnCours}" 
             class="imageCarte" 
-            src="images/${coulCart}/${carteTiree}.jpg" alt="img_${carteTiree}" 
+            src="images/${coulCart}/${carteTiree}.JPG" alt="img_${carteTiree}" 
             name="${carteTiree}"> 
         `
 
@@ -172,7 +172,7 @@ function jouerCarte(isJoueur) {
         coulCart = couleur(carteTiree)
 
         document.getElementById("cartesCroupier").innerHTML += `
-            <img class="imageCarte" src="images/${coulCart}/${carteTiree}.jpg" alt="img_${carteTiree}">
+            <img class="imageCarte" src="images/${coulCart}/${carteTiree}.JPG" alt="img_${carteTiree}">
         `
         cumulCroupier += parseInt(valeur(carteTiree))
 
@@ -233,7 +233,7 @@ async function jeuCroupier() {
     if(isFin == false){
         // Le croupier retourne sa carte
         coulCart = couleur(carte2Croupier)
-        document.getElementById("carte2Croupier").setAttribute("src", `images/${coulCart}/${carte2Croupier}.jpg`)
+        document.getElementById("carte2Croupier").setAttribute("src", `images/${coulCart}/${carte2Croupier}.JPG`)
         document.getElementById("carte2Croupier").setAttribute("alt", `img_${carte2Croupier}`)
     
         // Affichage du cumul du croupier
@@ -388,7 +388,7 @@ document.getElementById("btnJouer").addEventListener("click", () =>{
         // Retourner la carte du croupier si necessaire
         if(cumulCroupier==21){
             coulCart = couleur(carte2Croupier)
-            document.getElementById("carte2Croupier").setAttribute("src", `images/${coulCart}/${carte2Croupier}.jpg`)
+            document.getElementById("carte2Croupier").setAttribute("src", `images/${coulCart}/${carte2Croupier}.JPG`)
             document.getElementById("carte2Croupier").setAttribute("alt", `img_${carte2Croupier}`)
         }
 
@@ -479,7 +479,7 @@ document.getElementById("btnSplit").addEventListener("click", () =>{
     coulCart = couleur(carteDouble)
     document.getElementById(`cartesJoueur${mainEnCours}`).innerHTML = `
         <img id="main${mainEnCours}Carte${carteEnCours}" 
-        class="imageCarte" src="images/${coulCart}/${carteDouble}.jpg" alt="img_${carteDouble}" 
+        class="imageCarte" src="images/${coulCart}/${carteDouble}.JPG" alt="img_${carteDouble}" 
         name="${carteDouble}">
     `
 
