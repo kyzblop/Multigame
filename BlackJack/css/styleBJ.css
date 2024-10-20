@@ -77,17 +77,36 @@
 
 #votreMain{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
-    justify-content: space-between;
+    justify-content: space-evenly;
 
     height: 50%;
+    width: 100%;
 }
 
 #votreMain p{
     margin: 0;
     font-size: 20px;
 }
+
+.main{
+    display: flex;
+    flex-direction: column;
+}
+
+#main2{
+    display: none;
+}
+
+#main3{
+    display: none;
+}
+
+#main4{
+    display: none;
+}
+
 
 .imageCarte{
     height: 100px;
@@ -115,6 +134,29 @@
 
 #votreMise{
     margin-bottom: 15px;
+}
+
+#boutons{
+    /* display: none pour le cacher puis display: flex */ 
+    display: none;
+    flex-direction: column;
+
+    align-items: center;
+    gap: 10px;
+}
+
+#boutonsPrincipaux{
+    display: flex;
+    flex-direction: row;
+
+    justify-content: center;
+    gap: 10px;
+}
+
+#btnSplit{
+    display: none;
+
+    justify-content: center;
 }
 
 /* Icones de fontawesome, ne pas oublier le lien en debut de doc HTML pour lire les codes icones */

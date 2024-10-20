@@ -74,47 +74,65 @@
 
         <!-- Jeu côté joueur-->
         <div id="votreMain" hidden>
-            <p id="cumulJoueur"></p>
-            <div id="cartesJoueur"></div>
-            <p id="miseJoueur"></p>
+            <div id="main1" class="main">
+                <p id="cumulJoueur1"></p>
+                <div id="cartesJoueur1"></div>
+                <p id="miseJoueur1"valeur="0"></p>
+            </div>
+
+            <div id="main2" class="main" hidden>
+                <p id="cumulJoueur2"></p>
+                <div id="cartesJoueur2"></div>
+                <p id="miseJoueur2" valeur="0"></p>
+            </div>
+
+            <div id="main3" class="main" hidden>
+                <p id="cumulJoueur3"></p>
+                <div id="cartesJoueur3"></div>
+                <p id="miseJoueur3" valeur="0"></p>
+            </div>
+
+            <div id="main4" class="main" hidden>
+                <p id="cumulJoueur4"></p>
+                <div id="cartesJoueur4"></div>
+                <p id="miseJoueur4" valeur="0"></p>
+            </div>
         </div>
     </div>
 
     <!-- Boutons d'action dans le jeu -->
-    <div id="boutons" hidden>
-        <a id="btnCarte" class="fancy">
+    <div id="boutons">
+        <div id="boutonsPrincipaux">
+            <a id="btnCarte" class="fancy">
+                <span class="top-key"></span>
+                <span class="text">Carte</span>
+                <span class="bottom-key-1"></span>
+                <span class="bottom-key-2"></span>
+            </a>
+            <a id="btnDoubler" class="fancy">
+                <span class="top-key"></span>
+                <span class="text">Doubler</span>
+                <span class="bottom-key-1"></span>
+                <span class="bottom-key-2"></span>
+            </a>
+            <a id="btnRester" class="fancy">
+                <span class="top-key"></span>
+                <span class="text">Rester</span>
+                <span class="bottom-key-1"></span>
+                <span class="bottom-key-2"></span>
+            </a>
+        </div>
+        <a id="btnSplit" class="fancy">
             <span class="top-key"></span>
-            <span class="text">Carte</span>
+            <span class="text">Split</span>
             <span class="bottom-key-1"></span>
             <span class="bottom-key-2"></span>
         </a>
-        <a id="btnDoubler" class="fancy">
-            <span class="top-key"></span>
-            <span class="text">Doubler</span>
-            <span class="bottom-key-1"></span>
-            <span class="bottom-key-2"></span>
-        </a>
-        <a id="btnRester" class="fancy">
-            <span class="top-key"></span>
-            <span class="text">Rester</span>
-            <span class="bottom-key-1"></span>
-            <span class="bottom-key-2"></span>
-        </a>
     </div>
 
-    <div class="overlay" id="victoire">
-        <p id="victoireText" class="overlayText"></p>
+    <div class="overlay" id="result">
+        <p id="resultText" class="overlayText"></p>
     </div>
-
-    <div class="overlay" id="defaite">
-        <p id="defaiteText" class="overlayText"></p>
-    </div>
-
-    <div class="overlay" id="egalite">
-        <p id="egaliteText" class="overlayText">Stand off !</p>
-    </div>
-
-    
 
 </body>
 </html>
