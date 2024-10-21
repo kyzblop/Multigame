@@ -1,7 +1,7 @@
-let jeuComplet = new Array(52)
+let jeuComplet = new Map(number, String)
 
 jeuComplet = [
-    "As_coeur", "2_coeur", "3_coeur", "4_coeur", "5_coeur", "6_coeur",
+    , "3_coeur", "4_coeur", "5_coeur", "6_coeur",
         "7_coeur", "8_coeur", "9_coeur", "10_coeur", "J_coeur",  "Q_coeur", "K_coeur",
     "As_carreau", "2_carreau", "3_carreau", "4_carreau", "5_carreau", "6_carreau",
         "7_carreau", "8_carreau", "9_carreau", "10_carreau", "J_carreau",  "Q_carreau", "K_carreau",
