@@ -17,6 +17,102 @@
     border: double 15px black;
 }
 
+#faitesVosJeux{
+    display: flex;
+    flex-direction: row;
+}
+
+.imgRobot{
+    width: 100px;
+    height: 100px;
+}
+
+.messageRobot{
+    background-image: url(/Multigame/Main/images/bulles/img_bulle_sans_fond.png);
+    background-size: 110% 100%;
+
+    padding: 10px 20px 30px 20px;
+}
+
+#mainCroupier{
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+
+    height: 50%;
+    width: 100%;
+}
+
+#croupier{
+    /* display: none pour le cacher puis display: flex */
+    display: none;
+    flex-direction: row;
+
+    align-items: center;
+
+    font-size: large;
+
+    width: 300px;
+    height: 100%;
+}
+
+#sabot{
+    /* display: none pour le cacher puis display: flex */  
+    display: none;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    width: 300px;
+    height: 100%;
+}
+
+#imgSabot{
+    width: 200px;
+    height: 100px;
+}
+
+#votreMain{
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-evenly;
+
+    height: 50%;
+    width: 100%;
+}
+
+#votreMain p{
+    margin: 0;
+    font-size: 20px;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+}
+
+#main2{
+    display: none;
+}
+
+#main3{
+    display: none;
+}
+
+#main4{
+    display: none;
+}
+
+
+.imageCarte{
+    height: 100px;
+    border-radius: 5%;
+}
+
 /* Gestion de la mise du joueur */
 .mise{
     display: flex;
@@ -36,6 +132,33 @@
     width: 100px;
 }
 
+#votreMise{
+    margin-bottom: 15px;
+}
+
+#boutons{
+    /* display: none pour le cacher puis display: flex */ 
+    display: none;
+    flex-direction: column;
+
+    align-items: center;
+    gap: 10px;
+}
+
+#boutonsPrincipaux{
+    display: flex;
+    flex-direction: row;
+
+    justify-content: center;
+    gap: 10px;
+}
+
+#btnSplit{
+    display: none;
+
+    justify-content: center;
+}
+
 /* Icones de fontawesome, ne pas oublier le lien en debut de doc HTML pour lire les codes icones */
 .fontawesome {
     font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands", sans-serif;
@@ -44,8 +167,33 @@
     font-size: xx-large;
 }
 
-#iconJeton{
+.iconJeton{
     border-radius: 50%;
     width: 20px;
     height: 20px;
+}
+
+/* Gestion des message de victoire, defaite et egalité */
+.overlay{
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+.overlayText{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 50px;
+    color: white;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
 }
