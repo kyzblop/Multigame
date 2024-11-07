@@ -523,3 +523,9 @@ document.getElementById("result").addEventListener("click", () => {
     document.getElementById("result").style.display = "none";
     window.location.reload()
 })
+
+// Gestion du clic droit
+document.addEventListener('contextmenu', function(event) {
+    event.preventDefault();
+    alert("Pas de clic droit ici, Nulos")
+})

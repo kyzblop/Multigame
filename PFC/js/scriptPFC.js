@@ -240,3 +240,9 @@ document.getElementById("iconMoins").addEventListener("click", () => {
         document.getElementById("miseValeur").innerHTML = valeurMise
     }
 })
+
+// Gestion du clic droit
+document.addEventListener('contextmenu', function(event) {
+    event.preventDefault();
+    alert("Pas de clic droit ici, Nulos")
+})
