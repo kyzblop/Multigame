@@ -260,3 +260,15 @@ document.addEventListener('keydown', function(event) {
       alert('Essaie encore');
     }
 });
+
+
+// detection de devtool
+function verifierDevtool(){
+    if(window.outerHeight - window.innerHeight > 100){
+        sessionStorage.setItem("stack", 0)
+        alert("Tu es puni")
+    }
+}
+
+setInterval(verifierDevtool, 1000)
+
