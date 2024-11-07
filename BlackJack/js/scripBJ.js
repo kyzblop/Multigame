@@ -523,33 +523,3 @@ document.getElementById("result").addEventListener("click", () => {
     document.getElementById("result").style.display = "none";
     window.location.reload()
 })
-
-// Gestion du clic droit
-document.addEventListener('contextmenu', function(event) {
-    event.preventDefault();
-    alert("Pas de clic droit ici, Nulos")
-})
-
-// Gestion des raccourcis claviers
-document.addEventListener('keydown', function(event) {
-    // Désactiver les raccourcis pour les outils de développement
-    if ((event.ctrlKey && event.shiftKey && event.key === 'I') || // Ctrl + Shift + I
-        (event.key === 'F12') || // F12
-        (event.ctrlKey && event.key === 'U') || // Ctrl + U (voir source)
-        (event.ctrlKey && event.key === 'S') || // Ctrl + S (enregistrer la page)
-        (event.ctrlKey && event.key === 'P')) { // Ctrl + P (imprimer)
-  
-      event.preventDefault(); // Empêche l'action par défaut
-      alert('Essaie encore');
-    }
-});
-
-// detection de devtool
-function verifierDevtool(){
-    if(window.outerHeight - window.innerHeight > 100){
-        sessionStorage.setItem("stack", 0)
-        alert("Tu es puni")
-    }
-}
-
-setInterval(verifierDevtool, 1000)
