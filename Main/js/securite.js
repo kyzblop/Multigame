@@ -11,7 +11,7 @@ document.addEventListener('keydown', function(event) {
         (event.key === 'F12')) {
   
       event.preventDefault(); // Empêche l'action par défaut
-      alert('Pas d\'inspecteur ici');
+      alert("Pas d'inspecteur ici");
     }
 });
 
